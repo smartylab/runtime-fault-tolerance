@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="kr.co.smartylab" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://smartylab.co.kr/products/op/adapter" name="TestBP" targetNamespace="kr.co.smartylab" xmlns:p="http://www.w3.org/2001/XMLSchema">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="ConcertAdapterPLT">
+    <plnk:role name="ConcertAdapterPLTRole" portType="wsdl:concert_adapter_soap_serverPortType"/>
+  </plnk:partnerLinkType>
+    <import location="concert_adapter.wsdl" namespace="http://smartylab.co.kr/products/op/adapter"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="kr.co.smartylab">
+
+            <element name="TestBPRequest">
+                <complexType>
+                    <sequence>
+                        <element name="input" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="TestBPResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="SendTopicMsg">
+            	<complexType>
+            		<sequence>
+            			<element name="namespace" type="string"></element>
+            			<element name="message_val" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="SendTopicMsgResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="out" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="SendServiceMsg">
+            	<complexType>
+            		<sequence>
+            			<element name="namespace" type="string"></element>
+            			<element name="message_val" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="SendServiceMsgResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="out" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="SendActionMsg">
+            	<complexType>
+            		<sequence>
+            			<element name="namespace" type="string"></element>
+            			<element name="message_val" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="SendActionMsgResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="out" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="setActionResult">
+            	<complexType>
+            		<sequence>
+            			<element name="in" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="setActionResultResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="out" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="reportRuntimeFault">
+            	<complexType>
+            		<sequence>
+            			<element name="faultCode" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="reportRuntimeFaultResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="out" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="TestBPRequestMessage">
+        <part element="tns:TestBPRequest" name="payload"/>
+    </message>
+    <message name="TestBPResponseMessage">
+        <part element="tns:TestBPResponse" name="payload"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the TestBP BPEL process -->
+    <message name="SendTopicMsgRequest">
+    	<part name="parameters" element="tns:SendTopicMsg"></part>
+    </message>
+    <message name="SendTopicMsgResponse">
+    	<part name="parameters" element="tns:SendTopicMsgResponse"></part>
+    </message>
+    <message name="SendServiceMsgRequest">
+    	<part name="parameters" element="tns:SendServiceMsg"></part>
+    </message>
+    <message name="SendServiceMsgResponse">
+    	<part name="parameters" element="tns:SendServiceMsgResponse"></part>
+    </message>
+    <message name="SendActionMsgRequest">
+    	<part name="parameters" element="tns:SendActionMsg"></part>
+    </message>
+    <message name="SendActionMsgResponse">
+    	<part name="parameters" element="tns:SendActionMsgResponse"></part>
+    </message>
+    <message name="setActionResultRequest">
+    	<part name="parameters" element="tns:setActionResult"></part>
+    </message>
+    <message name="setActionResultResponse">
+    	<part name="parameters" element="tns:setActionResultResponse"></part>
+    </message>
+    <message name="reportRuntimeFaultRequest">
+    	<part name="parameters" element="tns:reportRuntimeFault"></part>
+    </message>
+    <message name="reportRuntimeFaultResponse">
+    	<part name="parameters" element="tns:reportRuntimeFaultResponse"></part>
+    </message>
+    <portType name="TestBP">
+        <operation name="process">
+            <input message="tns:TestBPRequestMessage"/>
+            <output message="tns:TestBPResponseMessage"/>
+        </operation>
+        <operation name="SendTopicMsg">
+        	<input message="tns:SendTopicMsgRequest"></input>
+        	<output message="tns:SendTopicMsgResponse"></output>
+        </operation>
+        <operation name="SendServiceMsg">
+        	<input message="tns:SendServiceMsgRequest"></input>
+        	<output message="tns:SendServiceMsgResponse"></output>
+        </operation>
+        <operation name="SendActionMsg">
+        	<input message="tns:SendActionMsgRequest"></input>
+        	<output message="tns:SendActionMsgResponse"></output>
+        </operation>
+        <operation name="setActionResult">
+        	<input message="tns:setActionResultRequest"></input>
+        	<output message="tns:setActionResultResponse"></output>
+        </operation>
+        <operation name="reportRuntimeFault">
+        	<input message="tns:reportRuntimeFaultRequest"></input>
+        	<output message="tns:reportRuntimeFaultResponse"></output>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="TestBP">
+        <plnk:role name="TestBPProvider" portType="tns:TestBP"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="TestBPBinding" type="tns:TestBP">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    	<operation name="process">
+    		<soap:operation soapAction="kr.co.smartylab/process"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    </binding>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="TestBPService">
+    	<port binding="tns:TestBPBinding" name="TestBPPort">
+    		<soap:address location="http://localhost:8080/TestBP"/>
+    	</port>
+    </service>
+</definitions>
